@@ -16,10 +16,8 @@
 # создаём файл task/dir2/hello.sh с таким содержанием:
 # #!/bin/bash
 # echo "$1, привет!"
-cat > dir2/hello.sh
-#!/bin/bash
-echo "$1, привет!"
-#ctrl+D
+echo '#!/bin/bash
+echo "$1, привет!"' > dir2/hello.sh
 
 # устанавливаем для task/dir2/hello.sh права rwxrw-r--
 chmod 764 dir2/hello.sh
@@ -29,12 +27,13 @@ ls dir2 > dir2/list.txt
 cp -r -T dir2 dir3/dir4 
 # записываем в task/dir1/summary.txt список файлов с расширением *.txt
 # находящихся в task, включая поддиректории
-cd .. #если не выйти на католг выше, то не знаю какой первый аргумент использовать для следующего  find
+cd .. 
+# если не выйти на католг выше, то не знаю какой первый аргумент использовать для следующего  find
 find task -name "*.txt" > task/dir1/summary.txt
 # дописываем в task/dir1/summary.txt содержимое task/dir2/list.txt
 cat task/dir2/list.txt >> task/dir1/summary.txt
 # определяем переменную окружения NAME со значением "Всем студентам"
-NAME="Всем студентам"
+NAME='Всем студентам'
 # запускаем task/dir2/hello.sh с переменной окружения NAME в качестве аргумента
 # вывод скрипта должен дописаться в файл task/dir1/summary.txt
 bash task/dir2/hello.sh $NAME >> task/dir1/summary.txt
